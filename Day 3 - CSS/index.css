@@ -1,0 +1,22 @@
+body{
+    margin: 0px;
+    color: white;
+    background-color: black;
+}
+.one{
+    width:50%;
+    height:50%;
+    color:white;
+    background-color: brown;
+    background-image: url("C:\\Users\\lenovo\\Desktop\\J.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.one>a{
+    text-decoration: none;
+    color:white;
+}
+#ajay>a{
+    text-decoration: none;
+    color:purple
+}

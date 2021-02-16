@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TodoList</title>
+</head>
+<style>
+    body {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #header,
+    #footer {
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        color: white;
+    }
+
+    #footer {
+        margin-top: 40px;
+    }
+
+    #logo {
+        font-size: 25px;
+        font-weight: 700;
+    }
+
+    #forms {
+        width: 30%;
+        height: 100px;
+        margin: 20px 35%;
+    }
+
+    #TodoList {
+        width: 80%;
+        height: auto;
+        margin: 40px 10%;
+        padding: 10px;
+        background-color: black;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .singleTodo {
+        width: 50%;
+        height: 100px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 8px;
+        background-color: blue;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <div id="header">
+        <div id="logo">
+            TodoList
+        </div>
+    </div>
+    <div id="forms">
+        <form>
+            <input type="text" placeholder="Todo Title" id="title"><button id="add">Add Task</button>
+        </form>
+    </div>
+    <div id="TodoList">
+        
+    </div>
+    <div id="footer">
+        <div id="thanks">
+            Thanks You
+        </div>
+    </div>
+</body>
+<script>
+    var title = document.getElementById('title');
+    var addTaskButton = document.getElementById('add');
+    var todolist = document.getElementById('TodoList');
+    var TodoList = []
+    addTaskButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        TodoList.push(title.value)
+        title.value = "";
+        renderList();
+    })
+    function delete1(index){
+        var newList=[];
+        for(let i=0;i<TodoList.length;i++){
+            if(i!=index){
+                newList.push(TodoList[i])
+            }
+        }
+        TodoList=newList;
+        renderList();
+    }
+    function edit1(index){
+        title.value=TodoList[index];
+        delete1(index);
+        renderList();
+        
+    }
+    function renderList() {
+        var res = "";
+        for (let i = 0; i < TodoList.length; i++) {
+            var single = TodoList[i];
+            var html = '<div class="singleTodo">\
+            <div class="title">'+single+'</div>\
+            <div class="buttons">\
+                <button onclick=edit1('+i+')>Edit</button>\
+                <button onclick=delete1('+i+')>Delete</button>\
+            </div>\
+        </div>';
+            console.log(html)
+            res += html;
+        }
+        todolist.innerHTML = res;
+    }
+    console.log(TodoList);
+
+</script>
+
+</html>

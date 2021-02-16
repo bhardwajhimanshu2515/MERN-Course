@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>flexbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #header {
+            background-color: black;
+            color: white;
+            width: 100%;
+            height: 150px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        #links>a {
+            text-decoration: none;
+            color: white;
+        }
+
+        #links {
+            font-size: 20px;
+            width: 250px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #images {
+            width: 90%;
+            height: auto;
+            margin: 40px 5%;
+            background-color: black;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        #images:hover {
+            background-color: red;
+        }
+
+        #images>img {
+            width: 280px;
+            height: 300px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        @media only screen and (min-width:1024px) and (max-width: 1025px) {
+            #header{
+                height:200px;
+            }
+            #logo{
+                font-size: 50px;
+            }
+            #links{
+                font-size: 35px;
+                width:400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <div id="logo">
+            Google
+        </div>
+        <div id="links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+    <div id="images">
+        <img src="C:\Users\lenovo\Desktop\Himanshu_Bhardwaj.jpg">
+        <img src="C:\Users\lenovo\Desktop\Himanshu_Bhardwaj.jpg">
+        <img src="C:\Users\lenovo\Desktop\Himanshu_Bhardwaj.jpg">
+        <img src="C:\Users\lenovo\Desktop\Himanshu_Bhardwaj.jpg">
+        <img src="C:\Users\lenovo\Desktop\Himanshu_Bhardwaj.jpg">
+    </div>
+</body>
+
+</html>
