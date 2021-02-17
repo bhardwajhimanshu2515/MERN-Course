@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather app</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #header {
+            width: 100%;
+            height: 100px;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #logo {
+            font-size: larger;
+            font-weight: 700;
+        }
+
+        #forms {
+            width: 30%;
+            height: 100px;
+            margin: 20px 35%;
+        }
+        #weather{
+            width: 80%;
+            height:auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <div id="logo">
+            Weather App
+        </div>
+    </div>
+    <div id="forms">
+        <input type="text" placeholder="City Name Please" id="city"><button id="submitBtn">Search Weather</button>
+    </div>
+    <div id="weather">
+
+    </div>
+</body>
+<script>
+    var city = document.getElementById('city');
+    var submitButton = document.getElementById('submitBtn');
+    var weather=document.getElementById('weather');
+    var result=[];
+    submitButton.addEventListener('click', async function (e) {
+        e.preventDefault();
+        console.log("city=", city.value);
+        await fetch("https://community-open-weather-map.p.rapidapi.com/weather?q=" + city.value + "&lat=0&lon=0&id=2172797&lang=null&units=%22metric%22%20or%20%22imperial%22&mode=xml%2C%20html", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "c8cb6b8cccmshc02b57f0b5a8c98p1516cdjsnb64d72a5ad33",
+                "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com"
+            }
+        })
+            .then( response => {
+                return response.json();
+            })
+            .then((data)=>{
+                let newData=[data]
+                result=newData;
+                console.log(result);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+            renderList();
+    })
+    function renderList(){
+        var res="";
+        console.log(result.length);
+        for(let i=0;i<result.length;i++){
+                console.log("hello");
+                var html=`<div id="tempMax">${result[i].main.temp_max}</div>
+                <div id="tempMin">${result[i].main.temp_min}</div>`
+                res+=html;
+                console.log(res);
+            }
+            weather.innerHTML=res;
+    }
+    //https://coronavirus-19-api.herokuapp.com/countries/india
+
+</script>
+
+</html>
+
