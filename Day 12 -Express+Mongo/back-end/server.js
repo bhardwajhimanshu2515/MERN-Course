@@ -51,10 +51,36 @@ mongoDb.MongoClient.connect(mongoURL,{useNewUrlParser:true,useUnifiedTopology:tr
                 })
             }
         })
-    })
-})
+    });
+
+    //create an api for login
+    app.post("/login",(req,res)=>{
+        //destructuring
+        const {email,password}=req.body;
+        console.log(req.body);
+
+        //check email exist or not
+        let existingUser=NewDB.collection('user').find({email:email}).toArray();
+        existingUser.then(User=>{
+            if(User.length>0){
+                console.log(User);
+                if(User[0].password===password){
+                    res.json(User);
+                }
+                else{
+                    res.json("Password didn't match")
+                }
+            }
+            else{
+                res.json("User Does not exist please signup");
+            }
+        })
+   })
+});
 //start server
 app.listen(8081,()=>{
     console.log("server started");
 })
+
+//http://localhost:8081/getAllTask/?email="pallavi@gmail.com"
 

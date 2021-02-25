@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <form>
+            <input type="email" placeholder="Email" id="email"><br />
+            <input type="password" placeholder="Password" id="password"><br />
+            <button id="login">Login</button>
+            <a href="index.html">Signup</a>
+        </form>
+    </body>
+    <script>
+        var email=document.getElementById("email");
+        var password=document.getElementById("password");
+        var loginButton=document.getElementById("login");
+
+        //add event on login
+        loginButton.addEventListener('click',async function(e){
+            e.preventDefault();
+
+            //create an object
+            var data={
+                email:email.value,
+                password:password.value
+            }
+            console.log(data);
+            console.log(localStorage.getItem('userInfo'));
+            //url of login api
+            var url="http://localhost:8081/login";
+            await fetch(url,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            .then(response=>{
+                console.log(response.json())
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+        })
+    </script>
+</html>
