@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Todo Create</title>
+</head>
+
+<body>
+    <form>
+        <input type="text" placeholder="Todo Title" id="title"><br />
+        <input type="text" placeholder="Todo Description" id="desc"><br />
+        <input type="date" placeholder="Todo Deadline" id="deadline"><br />
+        <button id="todoBtn">Create Todo</button>
+        <button id="getTodoBtn">Get Todo</button>
+    </form>
+</body>
+<script>
+    var title = document.getElementById("title");
+    var desc = document.getElementById("desc");
+    var deadline = document.getElementById("deadline");
+    var todoBtn = document.getElementById("todoBtn");
+    var getTodoBtn = document.getElementById("getTodoBtn");
+
+    //add event
+    todoBtn.addEventListener('click', async function (e) {
+        e.preventDefault();
+
+        var user = JSON.parse(localStorage.getItem("userInfo"));
+        var email = user[0].email;
+        //payload here
+        var data = {
+            title: title.value,
+            desc: desc.value,
+            deadline: deadline.value,
+            userEmail: email
+        }
+        console.log("data=", data);
+
+        //url
+        var url = "http://localhost:8081/todo";
+
+        //fetch
+        await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                console.log(response.json());
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            title.value="",
+            desc.value="",
+            deadline.value=""
+    })
+    //add event on get Todo Btn
+    getTodoBtn.addEventListener('click', async function (e) {
+            e.preventDefault();
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            var email = user[0].email;
+
+            var url = "http://localhost:8081/getAllTodo/" + email;
+            console.log(url)
+            //fetch
+            await fetch(url)
+            .then(response=>{
+                console.log(response.json())
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+            
+        })
+</script>
+
+</html>

@@ -41,13 +41,13 @@ mongoDb.MongoClient.connect(mongoURL,{useNewUrlParser:true,useUnifiedTopology:tr
         existingUser.then(User=>{
             //user already exist
             if(User.length>0){
-                response.json("User Already exists")
+                response.status(201).json("User Already exists")
             }
             else if(User.length<1){
                 let createdUser=NewDB.collection('user').insertOne(request.body);
                 createdUser.then(User=>{
                     console.log("user=",User.ops);
-                    response.json(User.ops);
+                    response.status(200).json(User.ops);
                 })
             }
         })
@@ -65,16 +65,51 @@ mongoDb.MongoClient.connect(mongoURL,{useNewUrlParser:true,useUnifiedTopology:tr
             if(User.length>0){
                 console.log(User);
                 if(User[0].password===password){
-                    res.json(User);
+                    res.status(200).json(User);
                 }
                 else{
-                    res.json("Password didn't match")
+                    res.status(201).json("Password didn't match")
                 }
             }
             else{
-                res.json("User Does not exist please signup");
+                res.status(201).json("User Does not exist please signup");
             }
         })
+   })
+
+   //api for creating todo
+   app.post("/todo",(req,res)=>{
+       const {title,desc,deadline,userEmail}=req.body;
+       console.log(req.body);
+
+       //insert data in mongodb
+        var createdTodo=NewDB.collection("todo").insertOne(req.body)
+        createdTodo.then(Todo=>{
+            console.log(Todo);
+            if(Todo.ops.length>0){
+                res.status(200).json(Todo.ops)
+            }
+            else{
+                res.status(500).json("Unable to save in MongoDb");
+            }
+        })
+   })
+
+   //get all todo
+   app.get("/getAllTodo/:email",(req,res)=>{
+       const email=req.params.email;
+       console.log(email);
+
+       //query
+       var allTodo=NewDB.collection("todo").find({userEmail:email}).toArray()
+       allTodo.then(Todo=>{
+           if(Todo.length>0){
+               res.status(200).json(Todo);
+           }
+           else{
+               res.status(500).json("Erron in getting data from mongoDB")
+           }
+       })
    })
 });
 //start server
@@ -83,4 +118,3 @@ app.listen(8081,()=>{
 })
 
 //http://localhost:8081/getAllTask/?email="pallavi@gmail.com"
-

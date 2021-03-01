@@ -42,10 +42,19 @@
                 body:JSON.stringify(data)
             })
             .then(response=>{
-                return response.json();
+                if(response.status===200){
+                    return response.json()
+                }
+                else if(response.status===201){
+                    alert("User Already Exists")
+                }
             })
             .then(data=>{
                 localStorage.setItem('userInfo',JSON.stringify(data));
+                var info=localStorage.getItem("userInfo");
+                if(info.length>0){
+                    window.location.href="todo.html";
+                }
             })
             .catch(err=>{
                 console.log(err);
