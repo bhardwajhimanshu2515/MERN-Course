@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Signup</title>
+    </head>
+    <body>
+        <form>
+            <input type="text" placeholder="Name" id="name1"><br />
+            <input type="tel" placeholder="Number" id="number"><br />
+            <input type="email" placeholder="Email" id="email"><br />
+            <input type="password" placeholder="Password" id="password"><br />
+            <button id="signupbtn">Signup</button>
+        </form>
+    </body>
+    <script>
+        var name1=document.getElementById("name1");
+        var phoneNumber=document.getElementById("number");
+        var email=document.getElementById("email");
+        var password=document.getElementById("password");
+        var signupBtn=document.getElementById("signupbtn");
+
+        //add event on signup
+        signupBtn.addEventListener('click',function(e){
+            e.preventDefault();
+            //create a payload
+            var data={
+                name:name1.value,
+                email:email.value,
+                phoneNumber:phoneNumber.value,
+                password:password.value
+            }
+            console.log("data=",data);
+
+            var url="http://localhost:8081/api/user/signup";
+            fetch(url,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            .then(response=>{
+                return response.json()
+            })
+            .then(data=>{
+                console.log(data);
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+        })
+    </script>
+</html>
