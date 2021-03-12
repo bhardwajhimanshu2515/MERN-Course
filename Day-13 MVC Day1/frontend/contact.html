@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contact Page</title>
+    </head>
+    <body>
+        <form>
+            <input type="text" placeholder="Name" id="name1"><br />
+            <input type="tel" placeholder="Number" id="number"><br />
+            <button id="create">Create contact</button>
+        </form>
+    </body>
+    <script>
+        var name1=document.getElementById("name1");
+        var phoneNumber=document.getElementById("number");
+        var createButton=document.getElementById("create");
+
+        //add event
+        createButton.addEventListener("click",function(e){
+            e.preventDefault();
+            var user=JSON.parse(localStorage.getItem('userInfo'));
+            var token=user.token;
+            var ownerId=user.userId;
+            //data
+            var data={
+                name:name1.value,
+                phoneNumber:phoneNumber.value,
+                ownerId:ownerId
+            }
+            console.log(data);
+
+            //url
+            var url="http://localhost:8081/api/contact/create";
+            fetch(url,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer `,
+                },
+                body:JSON.stringify(data)
+            })
+            .then(response=>{
+                return response.json();
+            })
+            .then(data=>{
+                console.log(data);
+            })
+            .catch(Err=>{
+                console.log(Err);
+            })
+        })
+    </script>
+</html>

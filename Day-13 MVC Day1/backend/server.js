@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 //import route
 const userRoute=require("./src/routes/user.routes");
+const contactRoute=require("./src/routes/contact.routes");
 
 //create server
 const app = express();
@@ -27,6 +28,7 @@ mongoose
 
     //user api
     app.use("/api/user",userRoute);
+    app.use("/api/contact",contactRoute);
 
     //server start
     app.listen(8081, () => {
