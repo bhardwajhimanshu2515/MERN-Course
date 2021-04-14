@@ -5,6 +5,7 @@ import Home from "./components/home";
 import Signup from "./components/signup";
 import Login from "./components/login";
 import Profile from "./components/profile";
+import Todo from "./components/todo";
 import {BrowserRouter,Route,Switch} from "react-router-dom";
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route path="/profile" exact>
             <Profile />
+          </Route>
+          <Route path="/getAllTodo" exact>
+            <Todo />
           </Route>
         </Switch>
       </BrowserRouter>

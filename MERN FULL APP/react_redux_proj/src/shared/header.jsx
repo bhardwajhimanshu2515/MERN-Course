@@ -11,6 +11,8 @@ function Header(){
                     Todo App
                 </div>
                 <div id="links">
+                    <NavLink to="/profile">Create Todo</NavLink>
+                    <NavLink to="/getAllTodo">Get All Todo</NavLink>
                     <NavLink to="/login">Logout</NavLink>
                 </div>
             </div>
